@@ -1,0 +1,80 @@
+---
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout
+    title="Finanças Pessoais para Leigos | Scientia Essencial"
+    description="Página de vendas do eBook Finanças Pessoais para Leigos."
+>
+    <main class="vendas-page">
+        <img
+            src="/vendas/financas-pessoais-para-leigos.png"
+            alt="Página de vendas do eBook Finanças Pessoais para Leigos"
+            class="pagina-vendas"
+            loading="lazy"
+        />
+
+        <div class="compra">
+            <a
+                href="https://pay.kiwify.com.br/TjcXsMf"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn-comprar"
+            >
+                Comprar agora
+            </a>
+        </div>
+    </main>
+</Layout>
+
+<style>
+    .vendas-page {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 32px 16px 56px;
+    }
+
+    .pagina-vendas {
+        display: block;
+        width: 100%;
+        height: auto;
+        margin: 0 auto;
+        border-radius: 8px;
+        box-shadow: 0 4px 20px rgba(25, 52, 76, 0.12);
+    }
+
+    .compra {
+        display: flex;
+        justify-content: center;
+        padding: 28px 0 0;
+    }
+
+    .btn-comprar {
+        display: inline-block;
+        padding: 16px 34px;
+        border-radius: 8px;
+        background: #f47920;
+        color: #ffffff;
+        text-decoration: none;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 1.1rem;
+        font-weight: 700;
+        box-shadow: 0 4px 12px rgba(25, 52, 76, 0.2);
+    }
+
+    .btn-comprar:hover {
+        opacity: 0.9;
+    }
+
+    @media (max-width: 600px) {
+        .vendas-page {
+            padding: 16px 8px 40px;
+        }
+
+        .btn-comprar {
+            width: 100%;
+            box-sizing: border-box;
+            text-align: center;
+        }
+    }
+</style>

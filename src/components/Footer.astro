@@ -1,0 +1,211 @@
+---
+---
+
+<footer class="site-footer">
+    <div class="footer-container">
+        <!-- Coluna Esquerda: Marca e Tagline -->
+        <div class="footer-brand">
+            <strong class="brand-title">
+                <span class="brand-scientia">Scientia</span>
+                <span class="brand-essencial">Essencial</span>
+            </strong>
+
+            <div class="slogan-wrapper">
+                <p class="slogan-text">
+                    <span class="comet-text-target">
+                        <span class="text-white">Conhecimento</span>
+                        <span class="text-orange">Claro para</span>
+                    </span>
+                    <span class="text-orange">&nbsp;a Vida Real.</span>
+                </p>
+                <!-- Canvas dedicado e isolado para renderizar o traço -->
+                <canvas id="comet-canvas" class="comet-canvas"></canvas>
+            </div>
+        </div>
+
+        <!-- Coluna Direita: Redes Sociais -->
+        <div class="footer-social">
+            <h2>Redes sociais</h2>
+
+            <nav aria-label="Redes sociais">
+                <a href="https://www.instagram.com/scientiaessencial/" target="_blank" rel="noopener noreferrer">Instagram</a>
+                <a href="https://www.facebook.com/profile.php?id=61587981808351" target="_blank" rel="noopener noreferrer">Facebook</a>
+                <a href="https://x.com/ScientiaEssenc" target="_blank" rel="noopener noreferrer">X</a>
+                <a href="https://www.youtube.com/@ScientiaEssencial" target="_blank" rel="noopener noreferrer">YouTube</a>
+                <a href="https://www.linkedin.com/in/scientia-essencial-412aa53b2/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            </nav>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p>© 2026 Scientia Essencial. Todos os direitos reservados.</p>
+    </div>
+</footer>
+
+<script>
+    // Função para desenhar o traço exato via JavaScript
+    function drawComet() {
+        // Adicionado 'as HTMLElement' para corrigir o erro de tipo no TypeScript
+        const target = document.querySelector('.comet-text-target') as HTMLElement;
+        const canvas = document.getElementById('comet-canvas') as HTMLCanvasElement;
+        
+        if (!target || !canvas) return;
+
+        const rect = target.getBoundingClientRect();
+        const parentRect = canvas.parentElement?.getBoundingClientRect();
+
+        if (!parentRect) return;
+
+        // Define a largura exata com base na largura real de "Conhecimento Claro para"
+        const width = rect.width;
+        const height = 12;
+
+        canvas.width = width;
+        canvas.height = height;
+
+        // Posição física exata abaixo do texto
+        canvas.style.left = `${target.offsetLeft}px`;
+        canvas.style.top = `${target.offsetTop + rect.height - 2}px`;
+
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return;
+
+        ctx.clearRect(0, 0, width, height);
+
+        // Desenho da forma de cometa (fino na esquerda, largo na direita)
+        ctx.beginPath();
+        ctx.moveTo(0, 10);
+        ctx.quadraticCurveTo(width * 0.5, 11, width - 6, 8);
+        ctx.arcTo(width, 6, width - 6, 2, 4);
+        ctx.quadraticCurveTo(width * 0.5, 5, 0, 10);
+        ctx.closePath();
+
+        // Gradiente laranja
+        const gradient = ctx.createLinearGradient(0, 0, width, 0);
+        gradient.addColorStop(0, 'rgba(244, 121, 32, 0)');
+        gradient.addColorStop(0.2, 'rgba(244, 121, 32, 0.6)');
+        gradient.addColorStop(1, '#F47920');
+
+        ctx.fillStyle = gradient;
+        ctx.fill();
+    }
+
+    // Executa ao carregar e ao redimensionar a tela
+    window.addEventListener('load', drawComet);
+    window.addEventListener('resize', drawComet);
+    document.addEventListener('astro:page-load', drawComet);
+    drawComet();
+</script>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;0,800;1,700;1,800&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap');
+
+    .site-footer {
+        background-color: #0A2540 !important;
+        color: #ffffff !important;
+        padding-top: 24px;
+        font-family: 'Open Sans', sans-serif;
+    }
+
+    .footer-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 24px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 30px;
+    }
+
+    .brand-title {
+        display: flex;
+        align-items: baseline;
+        gap: 6px;
+        font-family: 'Montserrat', sans-serif !important;
+        font-size: 1.45rem;
+        font-weight: 800;
+        margin-bottom: 6px;
+        letter-spacing: -0.02em;
+    }
+
+    .brand-scientia { color: #ffffff !important; }
+    .brand-essencial { color: #F47920 !important; }
+
+    .slogan-wrapper {
+        position: relative;
+        display: inline-block;
+    }
+
+    .slogan-text {
+        font-family: 'Montserrat', sans-serif !important;
+        font-size: 1.15rem !important;
+        font-weight: 800 !important;
+        font-style: italic !important;
+        margin: 0 !important;
+        white-space: nowrap;
+        display: flex;
+        align-items: center;
+    }
+
+    .text-white {
+        color: #ffffff !important;
+        margin-right: 0.25em;
+    }
+
+    .text-orange {
+        color: #F47920 !important;
+    }
+
+    .comet-text-target {
+        display: inline-flex;
+    }
+
+    /* O Canvas renderiza acima de tudo sem interferência de CSS externo */
+    .comet-canvas {
+        position: absolute !important;
+        pointer-events: none !important;
+        z-index: 99 !important;
+    }
+
+    .footer-social h2 {
+        margin: 0 0 8px;
+        font-family: 'Montserrat', sans-serif !important;
+        font-size: 1rem;
+        font-weight: 700;
+        color: #ffffff !important;
+    }
+
+    .footer-social nav {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+
+    .footer-social a {
+        color: #ffffff !important;
+        text-decoration: none;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 0.9rem;
+    }
+
+    .footer-bottom {
+        border-top: 1px solid rgba(255, 255, 255, 0.12);
+        padding: 12px 24px;
+        text-align: center;
+    }
+
+    .footer-bottom p {
+        margin: 0;
+        color: #ffffff !important;
+        font-size: 0.8rem;
+        opacity: 0.85;
+    }
+
+    @media (max-width: 768px) {
+        .footer-container {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 20px;
+        }
+    }
+</style>

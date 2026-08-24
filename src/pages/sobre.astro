@@ -1,0 +1,175 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+	title="Sobre a Scientia | Conhecimento simples e acessível"
+	description="Conheça a Scientia, uma plataforma dedicada a transformar temas importantes em conhecimento simples, prático e acessível."
+>
+	<main class="sobre-page">
+		<section class="intro">
+			<p class="eyebrow">SOBRE A SCIENTIA</p>
+
+			<h1>Conhecimento sem complicação</h1>
+
+			<p class="lead">
+				A Scientia nasceu com uma proposta simples: tornar o conhecimento
+				mais fácil de entender, mais acessível e mais útil para o dia a dia.
+			</p>
+		</section>
+
+		<section class="conteudo">
+			<h2>Aprender pode ser simples</h2>
+
+			<p>
+				Muitos assuntos importantes parecem complicados quando são
+				apresentados com excesso de termos técnicos ou explicações
+				desnecessárias.
+			</p>
+
+			<p>
+				A Scientia busca fazer o caminho contrário: transformar temas
+				complexos em conteúdos claros, objetivos e práticos, especialmente
+				para quem está começando.
+			</p>
+
+			<h2>Série Para Leigos</h2>
+
+			<p>
+				Um dos principais projetos da Scientia é a série de eBooks
+				<strong>Para Leigos</strong>.
+			</p>
+
+			<p>
+				A coleção aborda temas como Inteligência Artificial, ChatGPT,
+				finanças pessoais, investimentos, produtividade, renda extra,
+				trabalho remoto e criação de conteúdo.
+			</p>
+
+			<p>
+				Cada título foi desenvolvido para ajudar o leitor a compreender
+				o assunto e, principalmente, colocar o conhecimento em prática.
+			</p>
+
+			<h2>Nosso propósito</h2>
+
+			<p>
+				Oferecer conhecimento útil para pessoas que querem aprender,
+				desenvolver novas habilidades e encontrar novas possibilidades
+				para a vida pessoal e profissional.
+			</p>
+
+			<div class="cta">
+				<h2>Conheça nossos livros</h2>
+
+				<p>
+					Encontre um tema que faça sentido para você e comece seu
+					próximo aprendizado.
+				</p>
+
+				<a href="/livros">Ver livros</a>
+			</div>
+		</section>
+	</main>
+</Layout>
+
+<style>
+	.sobre-page {
+		max-width: 900px;
+		margin: 0 auto;
+		padding: 60px 24px;
+	}
+
+	.intro {
+		margin-bottom: 56px;
+		text-align: center;
+	}
+
+	.eyebrow {
+		margin: 0 0 16px;
+		font-size: 0.8rem;
+		font-weight: 700;
+		letter-spacing: 0.15em;
+		color: #666;
+	}
+
+	h1 {
+		margin: 0 0 24px;
+		font-size: 2.7rem;
+		line-height: 1.2;
+		color: #111;
+	}
+
+	.lead {
+		max-width: 700px;
+		margin: 0 auto;
+		font-size: 1.15rem;
+		line-height: 1.7;
+		color: #444;
+	}
+
+	.conteudo h2 {
+		margin: 42px 0 14px;
+		font-size: 1.7rem;
+		color: #111;
+	}
+
+	.conteudo h2:first-child {
+		margin-top: 0;
+	}
+
+	.conteudo p {
+		margin: 0 0 18px;
+		line-height: 1.8;
+		color: #444;
+	}
+
+	.cta {
+		margin-top: 56px;
+		padding: 32px;
+		border-radius: 12px;
+		background: #f7f7f7;
+		text-align: center;
+	}
+
+	.cta h2 {
+		margin-top: 0;
+	}
+
+	.cta a {
+		display: inline-block;
+		margin-top: 8px;
+		padding: 12px 22px;
+		border-radius: 6px;
+		background: #111;
+		color: #fff;
+		text-decoration: none;
+		font-weight: 600;
+	}
+
+	.cta a:hover {
+		opacity: 0.85;
+	}
+
+	@media (max-width: 600px) {
+		.sobre-page {
+			padding: 44px 16px;
+		}
+
+		h1 {
+			font-size: 2.1rem;
+		}
+
+		.lead {
+			font-size: 1rem;
+		}
+
+		.conteudo h2 {
+			font-size: 1.45rem;
+		}
+
+		.cta {
+			padding: 24px 20px;
+		}
+	}
+</style>
