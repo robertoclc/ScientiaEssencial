@@ -1,2 +1,3 @@
 User-agent: *
 Allow: /
+Sitemap: https://scientiaessencial.com.br/sitemap-index.xml
