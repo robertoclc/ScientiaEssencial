@@ -1,22 +1,12 @@
 ---
 import Layout from "../layouts/Layout.astro";
-
-// Se você tiver esses arquivos no projeto, pode reativar as importações:
-// import { livros } from "../data/livros";
-// import { categorias } from "../data/categorias";
+import { livros } from "../data/livros";
+import { categorias } from "../data/categorias"; // Caso tenha o arquivo de categorias, se não, pode remover
 
 const logoPath = "/Logo.png"; 
 
-// Dados de exemplo locais para exibição imediata
-const livrosExemplo = [
-    { 
-        title: "Finanças Pessoais para Leigos", 
-        description: "Finanças Pessoais para Leigos é um guia prático para quem quer organizar o dinheiro mesmo começando do zero." 
-    },
-    { title: "Produtividade Para Leigos", description: "Métodos práticos para gerenciar seu tempo e ter mais resultados." },
-    { title: "IA Para Leigos", description: "Entenda o mundo da inteligência artificial aplicada ao dia a dia." },
-    { title: "Renda Extra Para Leigos", description: "Estratégias simples para começar a rentabilizar suas habilidades." }
-];
+// Pegamos os primeiros 4 livros para exibir na página inicial como destaque
+const livrosDestaque = livros.slice(0, 4);
 
 const categoriasExemplo = [
     { title: "Finanças", description: "Investimentos e controle financeiro", slug: "financas" },
@@ -74,22 +64,19 @@ const categoriasExemplo = [
                 <p class="eyebrow">SÉRIE PARA LEIGOS</p>
                 <h2>Conhecimento para começar do zero</h2>
                 <div class="livros-preview">
-                    {livrosExemplo.map((livro) => (
+                    {livrosDestaque.map((livro) => (
                         <article class="livro-card">
-                            <h3>{livro.title}</h3>
-                            <p>{livro.description}</p>
-                            
-                            <div class="card-botoes">
-                                {livro.title.includes("Finanças") ? (
-                                    <>
-                                        <!-- Botão 1: Leva para a página de vendas da Kiwify -->
-                                        <a href="https://kiwify.app/NUluTzt" target="_blank" rel="noopener noreferrer" class="livro-link">Ver Página de Vendas</a>
-                                        <!-- Botão 2: Leva direto para o checkout do Kiwify -->
-                                        <a href="https://pay.kiwify.com.br/TjcXsMf" target="_blank" rel="noopener noreferrer" class="btn-comprar-card">Comprar</a>
-                                    </>
-                                ) : (
-                                    <a href="/livros" class="livro-link">Ver livro →</a>
-                                )}
+                            <div class="card-imagem-container">
+                                <img src={livro.imagem} alt={livro.title} class="capa-livro" />
+                            </div>
+                            <div class="card-info">
+                                <h3>{livro.title}</h3>
+                                <p>{livro.description}</p>
+                                
+                                <div class="card-botoes">
+                                    <a href={livro.vendasUrl} class="livro-link">Ver Página de Vendas</a>
+                                    <a href={livro.checkoutUrl} target="_blank" rel="noopener noreferrer" class="btn-comprar-card">Comprar</a>
+                                </div>
                             </div>
                         </article>
                     ))}
@@ -195,6 +182,25 @@ const categoriasExemplo = [
         background: #ffffff;
         border-left: 4px solid var(--azul-claro);
         border-radius: 6px;
+        display: flex;
+        gap: 20px;
+        align-items: center;
+    }
+    .card-imagem-container {
+        flex-shrink: 0;
+        width: 120px;
+    }
+    .capa-livro {
+        width: 100%;
+        height: auto;
+        border-radius: 4px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        display: block;
+    }
+    .card-info {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
     }
     .card-botoes {
         display: flex;
@@ -206,6 +212,7 @@ const categoriasExemplo = [
         color: var(--laranja);
         font-weight: 700;
         text-decoration: none;
+        font-size: 0.9rem;
     }
     .btn-comprar-card {
         padding: 8px 16px;
@@ -238,5 +245,7 @@ const categoriasExemplo = [
 
     @media (max-width: 768px) {
         .livros-preview, .categorias-lista { grid-template-columns: 1fr; }
+        .livro-card { flex-direction: column; align-items: flex-start; }
+        .card-imagem-container { width: 100px; margin: 0 auto; }
     }
 </style>

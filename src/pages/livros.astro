@@ -4,267 +4,313 @@ import { livros } from "../data/livros";
 ---
 
 <Layout
-	title="Livros | Scientia"
-	description="Conheça os livros da série Para Leigos e encontre conhecimento simples, prático e acessível."
+    title="Livros | Scientia"
+    description="Conheça os livros da série Para Leigos e encontre conhecimento simples, prático e acessível."
 >
-	<main class="livros-page">
-		<section class="intro">
-			<h1>Livros</h1>
+    <main class="livros-page">
+        <section class="intro">
+            <h1>Livros</h1>
 
-			<p>
-				A série <strong>Para Leigos</strong> transforma temas complexos em
-				conhecimento simples, direto e aplicável.
-			</p>
+            <p>
+                A série <strong>Para Leigos</strong> transforma temas complexos em
+                conhecimento simples, direto e aplicável.
+            </p>
 
-			<p>
-				Encontre o livro ideal para aprender algo novo e colocar o
-				conhecimento em prática.
-			</p>
+            <p>
+                Encontre o livro ideal para aprender algo novo e colocar o
+                conhecimento em prática.
+            </p>
 
-			<div class="busca">
-				<label for="busca-livros">Pesquisar livros</label>
+            <div class="busca">
+                <label for="busca-livros">Pesquisar livros</label>
 
-				<input
-					type="search"
-					id="busca-livros"
-					placeholder="🔍 Pesquise por título, tema ou assunto..."
-					autocomplete="off"
-				/>
-			</div>
-		</section>
+                <input
+                    type="search"
+                    id="busca-livros"
+                    placeholder="🔍 Pesquise por título, tema ou assunto..."
+                    autocomplete="off"
+                />
+            </div>
+        </section>
 
-		<section
-			class="livros-lista"
-			id="lista-livros"
-			aria-label="Livros da série Para Leigos"
-		>
-			{livros.map((livro) => (
-				<article
-					class="livro-card"
-					data-category={livro.category}
-					data-search={`${livro.title} ${livro.description}`.toLowerCase()}
-				>
-					<h2>{livro.title}</h2>
+        <section
+            class="livros-lista"
+            id="lista-livros"
+            aria-label="Livros da série Para Leigos"
+        >
+            {livros.map((livro) => (
+                <article
+                    class="livro-card"
+                    data-category={livro.category}
+                    data-search={`${livro.title} ${livro.description}`.toLowerCase()}
+                >
+                    <div class="card-imagem-container">
+                        <img 
+                            src={livro.imagem} 
+                            alt={`Capa do livro ${livro.title}`} 
+                            class="capa-livro" 
+                            loading="lazy"
+                        />
+                    </div>
 
-					<p>{livro.description}</p>
+                    <div class="card-conteudo">
+                        <h2>{livro.title}</h2>
 
-					<div class="acoes">
-						<a
-							href={livro.vendasUrl}
-							target="_blank"
-							rel="noopener noreferrer"
-							class="btn btn-vendas"
-						>
-							Ver Página de Vendas
-						</a>
+                        <p>{livro.description}</p>
 
-						<a
-							href={livro.checkoutUrl}
-							target="_blank"
-							rel="noopener noreferrer"
-							class="btn btn-checkout"
-						>
-							Comprar
-						</a>
-					</div>
-				</article>
-			))}
-		</section>
+                        <div class="acoes">
+                            <a
+                                href={livro.vendasUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="btn btn-vendas"
+                            >
+                                Ver Página de Vendas
+                            </a>
 
-		<p class="sem-resultados" id="sem-resultados" hidden>
-			Nenhum livro encontrado para essa pesquisa.
-		</p>
-	</main>
+                            <a
+                                href={livro.checkoutUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="btn btn-checkout"
+                            >
+                                Comprar
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            ))}
+        </section>
+
+        <p class="sem-resultados" id="sem-resultados" hidden>
+            Nenhum livro encontrado para essa pesquisa.
+        </p>
+    </main>
 </Layout>
 
 <script>
-	const busca = document.querySelector<HTMLInputElement>("#busca-livros");
-	const cards = document.querySelectorAll<HTMLElement>(".livro-card");
-	const semResultados =
-		document.querySelector<HTMLElement>("#sem-resultados");
+    const busca = document.querySelector<HTMLInputElement>("#busca-livros");
+    const cards = document.querySelectorAll<HTMLElement>(".livro-card");
+    const semResultados =
+        document.querySelector<HTMLElement>("#sem-resultados");
 
-	const parametros = new URLSearchParams(window.location.search);
-	const categoria = parametros.get("categoria");
+    const parametros = new URLSearchParams(window.location.search);
+    const categoria = parametros.get("categoria");
 
-	function normalizarTexto(texto: string) {
-		return texto
-			.normalize("NFD")
-			.replace(/[\u0300-\u036f]/g, "")
-			.toLowerCase();
-	}
+    function normalizarTexto(texto: string) {
+        return texto
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .toLowerCase();
+    }
 
-	function filtrarLivros() {
-		const termo = normalizarTexto(busca?.value.trim() ?? "");
-		let encontrados = 0;
+    function filtrarLivros() {
+        const termo = normalizarTexto(busca?.value.trim() ?? "");
+        let encontrados = 0;
 
-		cards.forEach((card) => {
-			const texto = normalizarTexto(card.dataset.search ?? "");
-			const categoriaLivro = card.dataset.category ?? "";
+        cards.forEach((card) => {
+            const texto = normalizarTexto(card.dataset.search ?? "");
+            const categoriaLivro = card.dataset.category ?? "";
 
-			const correspondeCategoria =
-				!categoria || categoriaLivro === categoria;
+            const correspondeCategoria =
+                !categoria || categoriaLivro === categoria;
 
-			const correspondeBusca = texto.includes(termo);
+            const correspondeBusca = texto.includes(termo);
 
-			const mostrar = correspondeCategoria && correspondeBusca;
+            const mostrar = correspondeCategoria && correspondeBusca;
 
-			card.hidden = !mostrar;
+            card.hidden = !mostrar;
 
-			if (mostrar) {
-				encontrados++;
-			}
-		});
+            if (mostrar) {
+                encontrados++;
+            }
+        });
 
-		if (semResultados) {
-			semResultados.hidden = encontrados > 0;
-		}
-	}
+        if (semResultados) {
+            semResultados.hidden = encontrados > 0;
+        }
+    }
 
-	busca?.addEventListener("input", filtrarLivros);
+    busca?.addEventListener("input", filtrarLivros);
 
-	filtrarLivros();
+    filtrarLivros();
 </script>
 
 <style>
-	.livros-page {
-		max-width: 1200px;
-		margin: 0 auto;
-		padding: 48px 24px;
-	}
+    .livros-page {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 48px 24px;
+    }
 
-	.intro {
-		max-width: 800px;
-		margin: 0 auto 48px;
-		text-align: center;
-	}
+    .intro {
+        max-width: 800px;
+        margin: 0 auto 48px;
+        text-align: center;
+    }
 
-	.intro h1 {
-		margin-bottom: 20px;
-		font-size: 2.5rem;
-	}
+    .intro h1 {
+        margin-bottom: 20px;
+        font-size: 2.5rem;
+    }
 
-	.intro p {
-		margin: 10px 0;
-		line-height: 1.7;
-		color: #444;
-	}
+    .intro p {
+        margin: 10px 0;
+        line-height: 1.7;
+        color: #444;
+    }
 
-	.busca {
-		margin-top: 32px;
-		text-align: left;
-	}
+    .busca {
+        margin-top: 32px;
+        text-align: left;
+    }
 
-	.busca label {
-		display: block;
-		margin-bottom: 8px;
-		font-weight: 600;
-		color: #222;
-	}
+    .busca label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #22, 22, 22;
+        color: #222;
+    }
 
-	.busca input {
-		box-sizing: border-box;
-		width: 100%;
-		padding: 14px 16px;
-		border: 1px solid #ccc;
-		border-radius: 8px;
-		font: inherit;
-		background: #fff;
-	}
+    .busca input {
+        box-sizing: border-box;
+        width: 100%;
+        padding: 14px 16px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font: inherit;
+        background: #fff;
+    }
 
-	.busca input:focus {
-		outline: 2px solid #111;
-		outline-offset: 1px;
-	}
+    .busca input:focus {
+        outline: 2px solid #111;
+        outline-offset: 1px;
+    }
 
-	.livros-lista {
-		display: grid;
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: 28px;
-	}
+    .livros-lista {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 28px;
+    }
 
-	.livro-card {
-		padding: 28px;
-		border: 1px solid #e5e5e5;
-		border-radius: 12px;
-		background: #ffffff;
-	}
+    .livro-card {
+        padding: 28px;
+        border: 1px solid #e5e5e5;
+        border-radius: 12px;
+        background: #ffffff;
+        display: flex;
+        gap: 24px;
+        align-items: flex-start;
+    }
 
-	.livro-card[hidden] {
-		display: none;
-	}
+    .card-imagem-container {
+        flex-shrink: 0;
+        width: 130px;
+    }
 
-	.livro-card h2 {
-		margin: 0 0 16px;
-		font-size: 1.4rem;
-		color: #111;
-	}
+    .capa-livro {
+        width: 100%;
+        height: auto;
+        border-radius: 6px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        display: block;
+    }
 
-	.livro-card p {
-		margin: 0;
-		line-height: 1.7;
-		color: #444;
-	}
+    .card-conteudo {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
 
-	.acoes {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 12px;
-		margin-top: 24px;
-	}
+    .livro-card[hidden] {
+        display: none;
+    }
 
-	.btn {
-		display: inline-block;
-		padding: 11px 16px;
-		border-radius: 6px;
-		text-decoration: none;
-		font-weight: 600;
-		font-size: 0.9rem;
-	}
+    .livro-card h2 {
+        margin: 0 0 12px;
+        font-size: 1.3rem;
+        color: #111;
+    }
 
-	.btn-vendas {
-		background: #111;
-		color: #fff;
-	}
+    .livro-card p {
+        margin: 0;
+        line-height: 1.6;
+        color: #444;
+        font-size: 0.95rem;
+    }
 
-	.btn-checkout {
-		border: 1px solid #111;
-		color: #111;
-		background: #fff;
-	}
+    .acoes {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 20px;
+    }
 
-	.btn:hover {
-		opacity: 0.85;
-	}
+    .btn {
+        display: inline-block;
+        padding: 10px 14px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.85rem;
+    }
 
-	.sem-resultados {
-		margin: 40px 0;
-		text-align: center;
-		color: #555;
-	}
+    .btn-vendas {
+        background: #111;
+        color: #fff;
+    }
 
-	@media (max-width: 700px) {
-		.livros-page {
-			padding: 36px 16px;
-		}
+    .btn-checkout {
+        border: 1px solid #111;
+        color: #111;
+        background: #fff;
+    }
 
-		.intro h1 {
-			font-size: 2rem;
-		}
+    .btn:hover {
+        opacity: 0.85;
+    }
 
-		.livros-lista {
-			grid-template-columns: 1fr;
-		}
+    .sem-resultados {
+        margin: 40px 0;
+        text-align: center;
+        color: #555;
+    }
 
-		.livro-card {
-			padding: 22px;
-		}
+    @media (max-width: 768px) {
+        .livros-page {
+            padding: 36px 16px;
+        }
 
-		.acoes {
-			flex-direction: column;
-		}
+        .intro h1 {
+            font-size: 2rem;
+        }
 
-		.btn {
-			text-align: center;
-		}
-	}
+        .livros-lista {
+            grid-template-columns: 1fr;
+        }
+
+        .livro-card {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 22px;
+        }
+
+        .card-imagem-container {
+            width: 140px;
+            margin-bottom: 12px;
+        }
+
+        .acoes {
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .btn {
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+        }
+    }
 </style>
