@@ -4,68 +4,70 @@ import Footer from "../components/Footer.astro";
 import "../styles/global.css";
 
 interface Props {
-	title?: string;
-	description?: string;
+    title?: string;
+    description?: string;
 }
 
 const {
-	title = "Scientia",
-	description = "Conhecimento de forma simples, prática e acessível.",
+    title = "Scientia Essencial | E-books e Conhecimento Prático",
+    description = "Conhecimento de forma simples, prática e acessível. Encontre e-books sobre inteligência artificial, finanças e desenvolvimento pessoal.",
 } = Astro.props;
+
+// Garante que o nome do site apareça no título de páginas internas (ex: ChatGPT | Scientia Essencial)
+const formattedTitle = title.includes("Scientia") ? title : `${title} | Scientia Essencial`;
 ---
 
 <!doctype html>
 <html lang="pt-BR">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta name="generator" content={Astro.generator} />
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="generator" content={Astro.generator} />
 
-		<title>{title}</title>
-		<meta name="description" content={description} />
+        <title>{formattedTitle}</title>
+        <meta name="description" content={description} />
 
-		<link rel="canonical" href={Astro.url} />
+        <link rel="canonical" href={Astro.url} />
 
-		<meta property="og:type" content="website" />
-        <meta property="og:title" content={title} />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={formattedTitle} />
         <meta property="og:description" content={description} />
         <meta property="og:url" content={Astro.url} />
-        <meta property="og:site_name" content="Scientia" />
+        <meta property="og:site_name" content="Scientia Essencial" />
 
-		<meta name="twitter:card" content="summary" />
-        <meta name="twitter:title" content={title} />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content={formattedTitle} />
         <meta name="twitter:description" content={description} />
         <meta name="twitter:url" content={Astro.url} />
 
-		<script type="application/ld+json">
-	{
-		"@context": "https://schema.org",
-		"@type": "WebSite",
-		"name": "Scientia",
-		"description": "Conhecimento de forma simples, prática e acessível."
-	}
-        </script>
+        <script type="application/ld+json" set:html={JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          "name": "Scientia Essencial",
+          "url": "https://scientiaessencial.com.br",
+          "description": description
+        })} />
 
-		<link rel="icon" href="/favicon.ico" />
-	</head>
+        <link rel="icon" href="/favicon.ico" />
+    </head>
 
-	<body>
-		<Header />
-		<slot />
-		<Footer />
-	</body>
+    <body>
+        <Header />
+        <slot />
+        <Footer />
+    </body>
 </html>
 
 <style>
-	html,
-	body {
-		margin: 0;
-		padding: 0;
-		width: 100%;
-		min-height: 100%;
-	}
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        min-height: 100%;
+    }
 
-	body {
-		font-family: Arial, Helvetica, sans-serif;
-	}
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+    }
 </style>
