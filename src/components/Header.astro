@@ -1,93 +1,126 @@
-<header class="site-header">
-	<div class="header-container">
-		<a href="/" class="logo">
-			<span class="logo-scientia">Scientia</span>
-			<span class="logo-essencial">Essencial</span>
-		</a>
+---
+interface Props {
+    transparent?: boolean;
+}
 
-		<nav>
-			<a href="/">Início</a>
-			<a href="/livros">Livros</a>
-			<a href="/categorias">Categorias</a>
-			<a href="/sobre">Sobre</a>
-		</nav>
-	</div>
+const { transparent = false } = Astro.props;
+---
+
+<header class={`site-header ${transparent ? 'header-transparent' : ''}`}>
+    <div class="header-container">
+        <a href="/" class="logo">
+            <span class="logo-scientia">Scientia</span>
+            <span class="logo-essencial">Essencial</span>
+        </a>
+
+        <nav>
+            <a href="/">Início</a>
+            <a href="/livros">Livros</a>
+            <a href="/categorias">Categorias</a>
+            <a href="/sobre">Sobre</a>
+            <a href="/#contato">Contato</a>
+        </nav>
+    </div>
 </header>
 
 <style>
-	.site-header {
-		border-bottom: 1px solid #e8e8e8;
-		background: #ffffff;
-	}
+    .site-header {
+        border-bottom: 1px solid #e8e8e8;
+        background: #ffffff;
+        width: 100%;
+    }
 
-	.header-container {
-		max-width: 1200px;
-		margin: 0 auto;
-		padding: 18px 24px;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-	}
+    /* Estilo ativado apenas quando passarmos a propriedade transparent */
+    .header-transparent {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 100;
+        background: transparent !important;
+        border-bottom: none !important;
+    }
 
-	.logo {
-		display: flex;
-		align-items: baseline;
-		gap: 6px;
-		text-decoration: none;
-		white-space: nowrap;
-	}
+    .header-transparent .logo-scientia {
+        color: #ffffff !important;
+    }
 
-	.logo-scientia {
-		font-family: "Montserrat", Arial, Helvetica, sans-serif;
-		font-size: 1.5rem;
-		font-weight: 700;
-		color: #19344c;
-	}
+    .header-transparent nav a {
+        color: #ffffff !important;
+    }
 
-	.logo-essencial {
-		font-family: "Montserrat", Arial, Helvetica, sans-serif;
-		font-size: 1rem;
-		font-weight: 700;
-		color: #f47920;
-	}
+    .header-transparent nav a:hover {
+        color: #f47920 !important;
+    }
 
-	nav {
-		display: flex;
-		gap: 24px;
-	}
+    /* Estilos normais do cabeçalho */
+    .header-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 18px 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
 
-	nav a {
-		font-family: "Open Sans", Arial, Helvetica, sans-serif;
-		color: #19344c;
-		text-decoration: none;
-		font-size: 0.95rem;
-		font-weight: 600;
-		transition: color 0.2s ease;
-	}
+    .logo {
+        display: flex;
+        align-items: baseline;
+        gap: 6px;
+        text-decoration: none;
+        white-space: nowrap;
+    }
 
-	nav a:hover {
-		color: #f47920;
-	}
+    .logo-scientia {
+        font-family: "Montserrat", Arial, Helvetica, sans-serif;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #19344c;
+    }
 
-	@media (max-width: 600px) {
-		.header-container {
-			padding: 16px;
-		}
+    .logo-essencial {
+        font-family: "Montserrat", Arial, Helvetica, sans-serif;
+        font-size: 1rem;
+        font-weight: 700;
+        color: #f47920;
+    }
 
-		.logo-scientia {
-			font-size: 1.3rem;
-		}
+    nav {
+        display: flex;
+        gap: 24px;
+    }
 
-		.logo-essencial {
-			font-size: 0.9rem;
-		}
+    nav a {
+        font-family: "Open Sans", Arial, Helvetica, sans-serif;
+        color: #19344c;
+        text-decoration: none;
+        font-size: 0.95rem;
+        font-weight: 600;
+        transition: color 0.2s ease;
+    }
 
-		nav {
-			gap: 12px;
-		}
+    nav a:hover {
+        color: #f47920;
+    }
 
-		nav a {
-			font-size: 0.85rem;
-		}
-	}
+    @media (max-width: 600px) {
+        .header-container {
+            padding: 16px;
+        }
+
+        .logo-scientia {
+            font-size: 1.3rem;
+        }
+
+        .logo-essencial {
+            font-size: 0.9rem;
+        }
+
+        nav {
+            gap: 12px;
+        }
+
+        nav a {
+            font-size: 0.85rem;
+        }
+    }
 </style>

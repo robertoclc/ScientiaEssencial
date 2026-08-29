@@ -1,0 +1,170 @@
+---
+---
+<section id="contato" class="contato-section">
+    <div class="section-content">
+        <div class="contato-grid">
+            <div class="contato-info">
+                <span class="eyebrow">FALE CONOSCO</span>
+                <h2>Tem alguma dúvida ou sugestão?</h2>
+                <p>
+                    Estamos aqui para ajudar você a transformar conhecimento em ação. Entre em contato conosco através do formulário ou pelos nossos canais oficiais.
+                </p>
+                <div class="canais-diretos">
+                    <div class="canal-item">
+                        <strong>E-mail de Suporte:</strong>
+                        <span>contato@scientiaessencial.com.br</span>
+                    </div>
+                    <div class="canal-item">
+                        <strong>Atendimento:</strong>
+                        <span>Segunda a Sexta, das 9h às 18h</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contato-form-container">
+                <form class="contato-form" action="#" method="POST">
+                    <div class="form-group">
+                        <label for="nome">Seu Nome</label>
+                        <input type="text" id="nome" name="nome" placeholder="Digite seu nome completo" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Seu E-mail</label>
+                        <input type="email" id="email" name="email" placeholder="seu@email.com" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="mensagem">Mensagem</label>
+                        <textarea id="mensagem" name="mensagem" rows="4" placeholder="Como podemos ajudar você hoje?" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-enviar">Enviar Mensagem</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .contato-section {
+        background-color: var(--fundo-suave, #f7f9fc);
+        padding: 80px 24px;
+        border-top: 1px solid #e2e8f0;
+    }
+
+    .section-content {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .contato-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 50px;
+        align-items: center;
+    }
+
+    .eyebrow {
+        font-size: 0.85rem;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        color: var(--laranja, #f47920);
+        display: block;
+        margin-bottom: 12px;
+    }
+
+    .contato-info h2 {
+        font-size: 2.2rem;
+        color: var(--azul-marinho, #0A2540);
+        margin: 0 0 16px 0;
+    }
+
+    .contato-info p {
+        color: #475569;
+        font-size: 1rem;
+        line-height: 1.6;
+        margin: 0 0 30px 0;
+    }
+
+    .canais-diretos {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .canal-item strong {
+        display: block;
+        color: var(--azul-marinho, #0A2540);
+        font-size: 0.95rem;
+    }
+
+    .canal-item span {
+        color: #64748b;
+        font-size: 0.9rem;
+    }
+
+    .contato-form-container {
+        background: #ffffff;
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        border-top: 4px solid var(--laranja, #f47920);
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--azul-marinho, #0A2540);
+        margin-bottom: 8px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+        padding: 12px 16px;
+        border: 1px solid #cbd5e1;
+        border-radius: 6px;
+        font-size: 0.95rem;
+        color: #1e293b;
+        background-color: #f8fafc;
+        transition: border-color 0.2s, box-shadow 0.2s;
+        box-sizing: border-box;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+        outline: none;
+        border-color: var(--laranja, #f47920);
+        background-color: #ffffff;
+        box-shadow: 0 0 0 3px rgba(244, 121, 32, 0.15);
+    }
+
+    .btn-enviar {
+        width: 100%;
+        padding: 14px;
+        background-color: var(--laranja, #f47920);
+        color: #ffffff;
+        border: none;
+        border-radius: 6px;
+        font-size: 1rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background-color 0.2s, opacity 0.2s;
+    }
+
+    .btn-enviar:hover {
+        opacity: 0.9;
+    }
+
+    @media (max-width: 768px) {
+        .contato-grid {
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+        .contato-form-container {
+            padding: 24px;
+        }
+    }
+</style>

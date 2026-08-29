@@ -1,11 +1,8 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import ContactSection from "../components/Contato.astro";
 import { livros } from "../data/livros";
-import { categorias } from "../data/categorias"; // Caso tenha o arquivo de categorias, se não, pode remover
 
-const logoPath = "/Logo.png"; 
-
-// Pegamos os primeiros 4 livros para exibir na página inicial como destaque
 const livrosDestaque = livros.slice(0, 4);
 
 const categoriasExemplo = [
@@ -20,48 +17,23 @@ const categoriasExemplo = [
     title="Scientia Essencial | Conhecimento Claro para a Vida Real"
     description="Scientia Essencial: conhecimento claro para a vida real."
 >
-    <main>
-        <!-- Header -->
-        <header class="header-main">
-            <div class="header-content">
-                <a href="/" class="logo-link">
-                    <img 
-                        src={logoPath} 
-                        alt="Scientia Essencial" 
-                        class="logo-img" 
-                    />
-                </a>
-            </div>
-        </header>
-
-        <!-- Hero -->
-        <section class="hero">
-            <div class="hero-content">
-                <p class="eyebrow">SCIENTIA ESSENCIAL</p>
-                <h1>Conhecimento de forma simples, prática e acessível.</h1>
-                <p class="hero-text">
-                    Conteúdos práticos para quem quer aprender algo novo,
-                    desenvolver habilidades e transformar conhecimento em ação.
-                </p>
-                <a href="/livros" class="btn">Conheça os livros</a>
-            </div>
-        </section>
-
-        <!-- Sobre -->
-        <section class="sobre">
-            <div class="section-content">
-                <h2>Aprenda sem complicação</h2>
-                <p>
-                    A Scientia reúne conteúdos desenvolvidos para tornar o
-                    conhecimento mais fácil de entender e aplicar no dia a dia.
-                </p>
+    <main class="main-container">
+        
+        <!-- Hero com a imagem ajustada e próxima do topo -->
+        <section class="hero-full">
+            <div class="hero-wrapper">
+                <img 
+                    src="/cap-home-page-scientia-essencial.jpg" 
+                    alt="Scientia Essencial - Aprenda algo novo com eBooks práticos" 
+                    class="hero-full-img"
+                />
             </div>
         </section>
 
         <!-- Livros Destaque -->
-        <section class="destaque">
+        <section id="destaque" class="destaque">
             <div class="section-content">
-                <p class="eyebrow">SÉRIE PARA LEIGOS</p>
+                <p class="eyebrow-dark">SÉRIE PARA LEIGOS</p>
                 <h2>Conhecimento para começar do zero</h2>
                 <div class="livros-preview">
                     {livrosDestaque.map((livro) => (
@@ -72,7 +44,6 @@ const categoriasExemplo = [
                             <div class="card-info">
                                 <h3>{livro.title}</h3>
                                 <p>{livro.description}</p>
-                                
                                 <div class="card-botoes">
                                     <a href={livro.vendasUrl} class="livro-link">Ver Página de Vendas</a>
                                     <a href={livro.checkoutUrl} target="_blank" rel="noopener noreferrer" class="btn-comprar-card">Comprar</a>
@@ -98,11 +69,16 @@ const categoriasExemplo = [
                 </div>
             </div>
         </section>
+
+        <!-- Seção de Contato -->
+        <ContactSection />
+
     </main>
 </Layout>
 
 <style>
     :root {
+        --azul-escuro: #0a192f;
         --azul-marinho: #0A2540;
         --azul-medio: #19344c;
         --azul-claro: #4B9CD3;
@@ -110,34 +86,40 @@ const categoriasExemplo = [
         --fundo-suave: #f7f9fc;
     }
 
-    /* Header */
-    .header-main {
-        background: #ffffff;
-        padding: 16px 24px;
-        border-bottom: 3px solid var(--laranja);
-    }
-    .header-content {
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-    .logo-img {
-        height: 55px;
-        width: auto;
-        display: block;
+    :global(body) {
+        background-color: var(--azul-escuro) !important;
+        margin: 0;
     }
 
-    /* Hero */
-    .hero {
-        padding: 70px 24px;
-        background: var(--fundo-suave);
-        text-align: center;
+    /* Container externo do Hero com espaçamento superior reduzido */
+    .hero-full {
+        position: relative;
+        background-color: var(--azul-escuro);
+        width: 100%;
+        padding: 10px 0 40px 0;
+        margin: 0;
+        display: flex;
+        justify-content: center;
     }
-    .hero-content, .section-content {
-        max-width: 1200px;
+
+    /* Caixa interna que limita a largura máxima horizontal da imagem */
+    .hero-wrapper {
+        width: 100%;
+        max-width: 950px;
         margin: 0 auto;
+        padding: 0 20px;
     }
-    .hero-content { max-width: 800px; }
-    .eyebrow {
+    
+    /* Estilização da imagem em si */
+    .hero-full-img {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 8px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .eyebrow-dark {
         margin: 0 0 12px;
         font-family: sans-serif;
         font-size: 0.85rem;
@@ -145,37 +127,25 @@ const categoriasExemplo = [
         letter-spacing: 0.15em;
         color: var(--laranja);
     }
-    h1 {
-        margin: 0;
-        font-family: sans-serif;
-        font-size: 2.5rem;
-        color: var(--azul-marinho);
-    }
-    .hero-text {
-        margin: 20px auto 26px;
-        font-size: 1.1rem;
-        color: var(--azul-medio);
-    }
-    .btn {
-        display: inline-block;
-        padding: 12px 24px;
-        border-radius: 6px;
-        background: var(--laranja);
-        color: #ffffff;
-        text-decoration: none;
-        font-weight: 700;
-    }
 
-    /* Seções */
-    .sobre, .destaque, .categorias { padding: 60px 24px; }
-    .sobre { text-align: center; }
+    /* Seções de Conteúdo Restantes */
+    .destaque, .categorias { padding: 60px 24px; }
+    .section-content {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
     .destaque { background: var(--fundo-suave); }
+
+    .destaque h2, .categorias h2 {
+        font-size: 2rem;
+        color: var(--azul-marinho);
+        margin: 0 0 30px 0;
+    }
 
     .livros-preview {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 20px;
-        margin-top: 30px;
     }
     .livro-card {
         padding: 20px;
@@ -185,6 +155,7 @@ const categoriasExemplo = [
         display: flex;
         gap: 20px;
         align-items: center;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.02);
     }
     .card-imagem-container {
         flex-shrink: 0;
@@ -201,6 +172,16 @@ const categoriasExemplo = [
         display: flex;
         flex-direction: column;
         flex-grow: 1;
+    }
+    .card-info h3 {
+        color: var(--azul-marinho);
+        margin: 0 0 8px 0;
+        font-size: 1.15rem;
+    }
+    .card-info p {
+        color: #475569;
+        font-size: 0.9rem;
+        margin: 0;
     }
     .card-botoes {
         display: flex;
@@ -231,17 +212,29 @@ const categoriasExemplo = [
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         gap: 16px;
-        margin-top: 20px;
     }
     .categoria {
-        padding: 16px;
-        border: 1px solid var(--laranja);
+        padding: 20px;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-left: 4px solid var(--laranja);
         border-radius: 6px;
         text-decoration: none;
         color: var(--azul-marinho);
+        transition: border-color 0.2s;
     }
-    .categoria strong { display: block; }
-    .categoria span { font-size: 0.85rem; color: var(--azul-medio); }
+    .categoria:hover {
+        border-color: var(--laranja);
+    }
+    .categoria strong { display: block; font-size: 1.05rem; margin-bottom: 4px;}
+    .categoria span { font-size: 0.85rem; color: #64748b; }
+
+    /* Responsividade */
+    @media (max-width: 968px) {
+        .categorias-lista {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
 
     @media (max-width: 768px) {
         .livros-preview, .categorias-lista { grid-template-columns: 1fr; }
