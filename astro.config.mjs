@@ -5,6 +5,7 @@ import cloudflare from '@astrojs/cloudflare';
 export default defineConfig({
   site: 'https://scientiaessencial.com.br',
   output: 'server', // ou 'hybrid' / 'static' dependendo do seu projeto
+  trailingSlash: "never",  //
   adapter: cloudflare(),
   integrations: [sitemap()],
 });
